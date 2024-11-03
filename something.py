@@ -1,10 +1,7 @@
-from requests import get, post
-from time import sleep
+import requests
+import time
 from random import randint
 from fake_useragent import UserAgent
-from re import search
-
-video_link = input('[?] Video Url > ')
 
 while True:
 
@@ -26,19 +23,12 @@ while True:
         'Sec-Fetch-Site': 'same-origin',
         'User-Agent': UserAgent().chrome
     }
-    
+    video_link = "https://www.tiktok.com/@kaizen.sell/video/7400485401019927841"
+
     video_id = video_link.split('/')[-1]
-    
-    data = {"link": video_link}
-    response = post('https://www.tikvues.com/api/views', headers=headers, json=data).json()
-
-    res = get(f'https://tiktok.livecounts.io/video/stats/{video_id}', headers={"origin": "https://tokcounter.com", "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"}).json()
-
-    t = search(r"(\d+)", response['message'])
-    if t:
-        for _ in range(1, int(t[0])):
-            print(f'Sleeping for {int(t[0]) - _}                    ', end='\r')
-            sleep(1)
-        
-
-    print(response['message'], 'Total: ', res['viewCount']) if response['success'] else ''
+    # 
+    data = {"link": video_link + f'?is_from_webapp=1&sender_device=pc&web_id={randint(1000000, 9999999)}'}
+    response = requests.post('https://www.tikvues.com/api/views', headers=headers, json=data)
+    res = requests.get(f'https://tiktok.livecounts.io/video/stats/{video_id}', headers={"origin": "https://tokcounter.com", "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"}).json()
+    print(response.json(), res['viewCount'])
+    time.sleep(5)
