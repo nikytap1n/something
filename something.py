@@ -23,7 +23,7 @@ while True:
         'Sec-Fetch-Site': 'same-origin',
         'User-Agent': UserAgent().chrome
     }
-    video_link = "https://www.tiktok.com/@kaizen.sell/video/7400485401019927841"
+    video_link = "https://www.tiktok.com/@n1kymetaa/video/7425816353287769386?is_from_webapp=1&sender_device=pc&web_id=7404519648287114782"
 
     video_id = video_link.split('/')[-1]
     # 
